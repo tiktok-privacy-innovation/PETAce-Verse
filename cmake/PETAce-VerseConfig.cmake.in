@@ -1,0 +1,92 @@
+# Copyright 2023 TikTok Pte. Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+macro(verse_find_dependency dep)
+    find_dependency(${dep})
+    if(NOT ${dep}_FOUND)
+        if(NOT PETAce-Verse_FIND_QUIETLY)
+            message(WARNING "Could not find dependency `${dep}` required by this configuration")
+        endif()
+        set(PETAce-Verse_FOUND FALSE)
+        return()
+    endif()
+endmacro()
+
+set(PETAce-Verse_FOUND FALSE)
+set(PETAce-Verse_STATIC_FOUND FALSE)
+set(PETAce-Verse_SHARED_FOUND FALSE)
+
+set(VERSE_VERSION @VERSE_VERSION@)
+set(VERSE_VERSION_MAJOR @VERSE_VERSION_MAJOR@)
+set(VERSE_VERSION_MINOR @VERSE_VERSION_MINOR@)
+set(VERSE_VERSION_PATCH @VERSE_VERSION_PATCH@)
+set(VERSE_BUILD_TYPE @CMAKE_BUILD_TYPE@)
+
+set(VERSE_CARRY_NETWORK @VERSE_CARRY_NETWORK@)
+set(VERSE_CARRY_SOLO @VERSE_CARRY_SOLO@)
+
+if(NOT VERSE_CARRY_NETWORK)
+    verse_find_dependency(PETAce-Network REQUIRED)
+endif()
+
+if(NOT VERSE_CARRY_SOLO)
+    verse_find_dependency(PETAce-Solo REQUIRED)
+endif()
+
+# Add the current directory to the module search path
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+verse_find_dependency(Threads)
+
+include(${CMAKE_CURRENT_LIST_DIR}/PETAce-VerseTargets.cmake)
+
+if(TARGET PETAce-Verse::verse)
+    set(PETAce-Verse_FOUND TRUE)
+    set(PETAce-Verse_STATIC_FOUND TRUE)
+endif()
+
+if(TARGET PETAce-Verse::verse_shared)
+    set(PETAce-Verse_FOUND TRUE)
+    set(PETAce-Verse_SHARED_FOUND TRUE)
+endif()
+
+if(PETAce-Verse_FOUND)
+    if(NOT PETAce-Verse_FIND_QUIETLY)
+        message(STATUS "PETAce-Verse -> Version ${PETAce-Verse_VERSION} detected")
+    endif()
+    if(VERSE_DEBUG AND NOT PETAce-Verse_FIND_QUIETLY)
+        message(STATUS "Performance warning: PETAce-Verse compiled in debug mode")
+    endif()
+    set(PETAce-Verse_TARGETS_AVAILABLE "PETAce-Verse -> Targets available:")
+
+    if(PETAce-Verse_STATIC_FOUND)
+        string(APPEND PETAce-Verse_TARGETS_AVAILABLE " PETAce-Verse::verse")
+    endif()
+    if(PETAce-Verse_SHARED_FOUND)
+        string(APPEND PETAce-Verse_TARGETS_AVAILABLE " PETAce-Verse::verse_shared")
+    endif()
+    if(NOT PETAce-Verse_FIND_QUIETLY)
+        message(STATUS ${PETAce-Verse_TARGETS_AVAILABLE})
+    endif()
+else()
+    if(NOT PETAce-Verse_FIND_QUIETLY)
+        message(STATUS "PETAce-Verse -> NOT FOUND")
+    endif()
+endif()
