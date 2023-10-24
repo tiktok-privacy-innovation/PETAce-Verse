@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Source files in this directory
+set(VERSE_SOURCE_FILES ${VERSE_SOURCE_FILES}
+    ${CMAKE_CURRENT_LIST_DIR}/kkrt_nco_ot_ext.cpp
+)
+
 # Add header files for installation
 install(
     FILES
-        ${CMAKE_CURRENT_LIST_DIR}/verse_factory.h
+        ${CMAKE_CURRENT_LIST_DIR}/kkrt_nco_ot_ext.h
     DESTINATION
-        ${VERSE_INCLUDES_INSTALL_DIR}/verse
+        ${VERSE_INCLUDES_INSTALL_DIR}/verse/n-choose-one/kkrt
 )
-
-add_subdirectory(util)
-add_subdirectory(base-ot)
-add_subdirectory(two-choose-one)
-add_subdirectory(n-choose-one)
 
 set(VERSE_SOURCE_FILES ${VERSE_SOURCE_FILES} PARENT_SCOPE)

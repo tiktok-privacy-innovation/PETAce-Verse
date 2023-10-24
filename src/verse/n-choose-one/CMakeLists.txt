@@ -15,14 +15,11 @@
 # Add header files for installation
 install(
     FILES
-        ${CMAKE_CURRENT_LIST_DIR}/verse_factory.h
+        ${CMAKE_CURRENT_LIST_DIR}/nco_ot_ext_receiver.h
+        ${CMAKE_CURRENT_LIST_DIR}/nco_ot_ext_sender.h
     DESTINATION
-        ${VERSE_INCLUDES_INSTALL_DIR}/verse
+        ${VERSE_INCLUDES_INSTALL_DIR}/verse/n-choose-one
 )
-
-add_subdirectory(util)
-add_subdirectory(base-ot)
-add_subdirectory(two-choose-one)
-add_subdirectory(n-choose-one)
+add_subdirectory(kkrt)
 
 set(VERSE_SOURCE_FILES ${VERSE_SOURCE_FILES} PARENT_SCOPE)

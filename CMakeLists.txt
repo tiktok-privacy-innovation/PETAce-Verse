@@ -30,7 +30,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Build type (CMAKE_BUILD_TYPE): ${CMAKE_BUILD_TYPE}")
 
-project(VERSE VERSION 0.1.0 LANGUAGES CXX C)
+project(VERSE VERSION 0.2.0 LANGUAGES CXX C)
 
 ########################
 # Global configuration #
@@ -193,7 +193,7 @@ if(NOT TARGET Threads::Threads)
 endif()
 
 # PETAce-Network::network
-find_package(PETAce-Network 0.1 QUIET CONFIG)
+find_package(PETAce-Network 0.2 QUIET CONFIG)
 if(PETAce-Network_FOUND)
     message(STATUS "PETAce-Network: found")
     if(PETAce-Network_STATIC_FOUND)
@@ -217,7 +217,7 @@ else()
 endif()
 
 # PETAce-Solo::solo
-find_package(PETAce-Solo 0.1 QUIET CONFIG)
+find_package(PETAce-Solo 0.2 QUIET CONFIG)
 if(PETAce-Solo_FOUND)
     message(STATUS "PETAce-Solo: found")
     if(PETAce-Solo_STATIC_FOUND)

@@ -14,14 +14,14 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-project(VERSEExamples VERSION 0.1.0 LANGUAGES CXX)
+project(VERSEExamples VERSION 0.2.0 LANGUAGES CXX)
 
 # If not called from root CMakeLists.txt
 if(NOT DEFINED VERSE_BUILD_EXAMPLE)
     set(VERSE_BUILD_EXAMPLE ON)
 
     # Import Microsoft VERSE
-    find_package(PETAce-Verse 0.1.0 EXACT REQUIRED)
+    find_package(PETAce-Verse 0.2.0 EXACT REQUIRED)
 
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 endif()
@@ -33,6 +33,7 @@ if(VERSE_BUILD_EXAMPLE)
     set(PETACE_VERSE_EXAMPLE_FILES ${PETACE_VERSE_EXAMPLE_FILES}
         ${CMAKE_CURRENT_LIST_DIR}/example.cpp
         ${CMAKE_CURRENT_LIST_DIR}/iknp_ot_example.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/kkrt_ot_example.cpp
         ${CMAKE_CURRENT_LIST_DIR}/np_ot_example.cpp
     )
 

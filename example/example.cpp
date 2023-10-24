@@ -23,15 +23,16 @@ int main(int argc, char* argv[]) {
         throw std::runtime_error("Parameters are incorrect!");
     }
     while (true) {
-        std::cout << "+---------------------------------------------------------+" << std::endl;
-        std::cout << "| The following examples should be executed while reading |" << std::endl;
-        std::cout << "| comments in associated files in examples/.              |" << std::endl;
-        std::cout << "+---------------------------------------------------------+" << std::endl;
-        std::cout << "| Examples                   | Source Files               |" << std::endl;
-        std::cout << "+----------------------------+----------------------------+" << std::endl;
-        std::cout << "| 1. Naor Pinkas OT          | np_ot_example.cpp          |" << std::endl;
-        std::cout << "| 2. IKNP OT                 | iknp_ot_example.cpp        |" << std::endl;
-        std::cout << "+----------------------------+----------------------------+" << std::endl;
+        std::cout << "+--------------------------------------------------------------------+" << std::endl;
+        std::cout << "| The following examples should be executed while reading            |" << std::endl;
+        std::cout << "| comments in associated files in examples/.                         |" << std::endl;
+        std::cout << "+--------------------------------------------------------------------+" << std::endl;
+        std::cout << "| Examples                              | Source Files               |" << std::endl;
+        std::cout << "+----------------------------+---------------------------------------+" << std::endl;
+        std::cout << "| 1. Naor Pinkas OT                     | np_ot_example.cpp          |" << std::endl;
+        std::cout << "| 2. IKNP 1-out-of-2 OT                 | iknp_ot_example.cpp        |" << std::endl;
+        std::cout << "| 3. KKRT 1-out-of-n OT                 | kkrt_ot_example.cpp        |" << std::endl;
+        std::cout << "+----------------------------+---------------------------------------+" << std::endl;
 
         int selection = 0;
         std::cin >> selection;
@@ -41,6 +42,10 @@ int main(int argc, char* argv[]) {
                 break;
             case 2:
                 iknp_ot_example(
+                        atoi(argv[5]), std::string(argv[1]), atoi(argv[2]), std::string(argv[3]), atoi(argv[4]));
+                break;
+            case 3:
+                kkrt_ot_example(
                         atoi(argv[5]), std::string(argv[1]), atoi(argv[2]), std::string(argv[3]), atoi(argv[4]));
                 break;
             case 0:

@@ -23,6 +23,9 @@
 #include "verse/base-ot/base_ot_receiver.h"
 #include "verse/base-ot/base_ot_sender.h"
 #include "verse/base-ot/naor-pinkas-ot/naor_pinkas_ot.h"
+#include "verse/n-choose-one/kkrt/kkrt_nco_ot_ext.h"
+#include "verse/n-choose-one/nco_ot_ext_receiver.h"
+#include "verse/n-choose-one/nco_ot_ext_sender.h"
 #include "verse/two-choose-one/iknp/iknp_ot_ext.h"
 #include "verse/two-choose-one/ot_ext_receiver.h"
 #include "verse/two-choose-one/ot_ext_sender.h"
@@ -30,7 +33,14 @@
 namespace petace {
 namespace verse {
 
-enum class OTScheme : std::uint32_t { NaorPinkasSender = 0, NaorPinkasReceiver = 1, IknpSender = 2, IknpReceiver = 3 };
+enum class OTScheme : std::uint32_t {
+    NaorPinkasSender = 0,
+    NaorPinkasReceiver = 1,
+    IknpSender = 2,
+    IknpReceiver = 3,
+    KkrtSender = 4,
+    KkrtReceiver = 5
+};
 
 template <class T>
 using VerseCreator = std::function<std::unique_ptr<T>(const VerseParams& params)>;
@@ -118,11 +128,17 @@ public:
     static VerseRegistrar<OtExtSender> registrar__iknp_sender__object(scheme, creator);
 #define REGISTER_VERSE_EXTOT_RECEIVER(scheme, creator) \
     static VerseRegistrar<OtExtReceiver> registrar__iknp_receiver__object(scheme, creator);
+#define REGISTER_VERSE_NEXTOT_SENDER(scheme, creator) \
+    static VerseRegistrar<NcoOtExtSender> registrar__kkrt_sender__object(scheme, creator);
+#define REGISTER_VERSE_NEXTOT_RECEIVER(scheme, creator) \
+    static VerseRegistrar<NcoOtExtReceiver> registrar__kkrt_receiver__object(scheme, creator);
 
 REGISTER_VERSE_BASE_OT_SENDER(OTScheme::NaorPinkasSender, create_naor_pinkas_sender)
 REGISTER_VERSE_BASE_OT_RECEIVER(OTScheme::NaorPinkasReceiver, create_naor_pinkas_receiver)
 REGISTER_VERSE_EXTOT_SENDER(OTScheme::IknpSender, create_iknp_ext_sender)
 REGISTER_VERSE_EXTOT_RECEIVER(OTScheme::IknpReceiver, create_iknp_ext_receiver)
+REGISTER_VERSE_NEXTOT_SENDER(OTScheme::KkrtSender, create_kkrt_ext_sender)
+REGISTER_VERSE_NEXTOT_RECEIVER(OTScheme::KkrtReceiver, create_kkrt_ext_receiver)
 
 }  // namespace verse
 }  // namespace petace

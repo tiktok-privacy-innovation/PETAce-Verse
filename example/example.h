@@ -21,3 +21,6 @@ void np_ot_example(std::size_t party_id, std::string local_addr, std::size_t loc
 
 void iknp_ot_example(std::size_t party_id, std::string local_addr, std::size_t local_port, std::string remote_addr,
         std::size_t remote_port);
+
+void kkrt_ot_example(std::size_t party_id, std::string local_addr, std::size_t local_port, std::string remote_addr,
+        std::size_t remote_port);

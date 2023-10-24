@@ -6,3 +6,9 @@
 
 - Added Naor-Pinkas oblivious transfer.
 - Added IKNP oblivious transfer extension.
+
+## Version 0.2.0
+
+### Features
+
+- Added KKRT oblivious transfer.
