@@ -15,7 +15,7 @@
 FetchContent_Declare(
     solo
     GIT_REPOSITORY https://github.com/tiktok-privacy-innovation/PETAce-Solo.git
-    GIT_TAG        ead22f615120a0cd9926cfc5d5787fe4bcda379c # 0.2.0
+    GIT_TAG        60c6301802040f622d30c148ab49ad42f5b0e3d2 # 0.3.0
 )
 FetchContent_GetProperties(solo)
 

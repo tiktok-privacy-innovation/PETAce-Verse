@@ -17,12 +17,14 @@ Currently, PETAce-Verse includes: [Naor-Pinkas OT](https://dl.acm.org/doi/10.555
 
 | Required dependency                                                            | Tested version | Use                             |
 |--------------------------------------------------------------------------------|----------------|---------------------------------|
-| [PETAce-Solo](https://github.com/tiktok-privacy-innovation/PETAce-Solo)       | 0.2.0          | Cryptography primitives         |
-| [PETAce-Network](https://github.com/tiktok-privacy-innovation/PETAce-Network) | 0.2.0          | Network communication protocols |
+| [PETAce-Solo](https://github.com/tiktok-privacy-innovation/PETAce-Solo)       | 0.3.0          | Cryptography primitives         |
+| [PETAce-Network](https://github.com/tiktok-privacy-innovation/PETAce-Network) | 0.3.0          | Network communication protocols |
 
 | Optional dependency                                | Tested version | Use               |
 |----------------------------------------------------|----------------|-------------------|
-| [GoogleTest](https://github.com/google/googletest) | 1.12.1         | For running tests |
+| [GoogleTest](https://github.com/google/googletest) | 1.12.1         | For running tests      |
+| [Google Logging](https://github.com/google/glog)   | 0.4.0          | For running benchmarks |
+| [TCLAP](https://github.com/mirror/tclap)           | 1.2.2          | For running benchmarks |
 
 ## Building PETAce-Verse
 
@@ -42,6 +44,7 @@ Output binaries can be found in `build/lib/` and `build/bin/` directories.
 | `CMAKE_BUILD_TYPE`        | Release/Debug | Release | Debug mode decreases run-time performance.          |
 | `VERSE_BUILD_SHARED_LIBS` | ON/OFF        | OFF     | Build a shared library if set to ON.                |
 | `VERSE_BUILD_EXAMPLE`     | ON/OFF        | ON      | Build C++ example if set to ON.                     |
+| `VERSE_BUILD_BENCH`       | ON/OFF        | ON      | Build C++ benchmark if set to ON.                   |
 | `VERSE_BUILD_TEST`        | ON/OFF        | ON      | Build C++ test if set to ON.                        |
 | `VERSE_BUILD_DEPS`        | ON/OFF        | ON      | Download and build unmet dependencies if set to ON. |
 
@@ -59,6 +62,22 @@ To run Party B
 ./build/bin/verse_example 127.0.0.1 8890 127.0.0.1 8899 1
 ```
 
+We have also prepared a series of performance test cases for PETAce-Verse.
+
+To run Party A
+
+```shell
+./build/bin/verse_bench -p 0 --log_path ./verse0.log
+```
+
+To run Party B
+
+```shell
+./build/bin/verse_bench -p 1 --log_path ./verse1.log
+```
+
+You can also use ./build/bin/verse_bench -h to learn more details.
+
 ## Contribution
 
 Please check [Contributing](CONTRIBUTING.md) for more details.
@@ -75,14 +94,14 @@ This project is licensed under the [Apache-2.0 License](LICENSE).
 
 To cite PETAce in academic papers, please use the following BibTeX entries.
 
-### Version 0.2.0
+### Version 0.3.0
 
 ```tex
     @misc{petace,
-        title = {PETAce (release 0.2.0)},
+        title = {PETAce (release 0.3.0)},
         howpublished = {\url{https://github.com/tiktok-privacy-innovation/PETAce}},
-        month = Oct,
-        year = 2023,
+        month = Jun,
+        year = 2024,
         note = {TikTok Pte. Ltd.},
         key = {PETAce}
     }

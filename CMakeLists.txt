@@ -30,7 +30,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Build type (CMAKE_BUILD_TYPE): ${CMAKE_BUILD_TYPE}")
 
-project(VERSE VERSION 0.2.0 LANGUAGES CXX C)
+project(VERSE VERSION 0.3.0 LANGUAGES CXX C)
 
 ########################
 # Global configuration #
@@ -153,7 +153,12 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND VERSE_ENABLE_GCOV)
 endif()
 
 # CMAKE_CXX_LINK_EXECUTABLE
-set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl -lrt")
+if (LINUX)
+    set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl -lrt")
+else()
+    set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE}")
+endif()
+
 
 #########################
 # External dependencies #
@@ -193,7 +198,7 @@ if(NOT TARGET Threads::Threads)
 endif()
 
 # PETAce-Network::network
-find_package(PETAce-Network 0.2 QUIET CONFIG)
+find_package(PETAce-Network 0.3 QUIET CONFIG)
 if(PETAce-Network_FOUND)
     message(STATUS "PETAce-Network: found")
     if(PETAce-Network_STATIC_FOUND)
@@ -217,7 +222,7 @@ else()
 endif()
 
 # PETAce-Solo::solo
-find_package(PETAce-Solo 0.2 QUIET CONFIG)
+find_package(PETAce-Solo 0.3 QUIET CONFIG)
 if(PETAce-Solo_FOUND)
     message(STATUS "PETAce-Solo: found")
     if(PETAce-Solo_STATIC_FOUND)
@@ -275,12 +280,9 @@ if(NOT VERSE_BUILD_SHARED_LIBS)
         target_include_directories(verse PUBLIC
             $<BUILD_INTERFACE:$<TARGET_PROPERTY:${network},INTERFACE_INCLUDE_DIRECTORIES>>
             $<INSTALL_INTERFACE:${VERSE_INCLUDES_INSTALL_DIR}>)
-        verse_combine_archives(verse ${network})
-        set(VERSE_CARRY_NETWORK TRUE)
-    else()
-        target_link_libraries(verse PUBLIC ${network})
-        set(VERSE_CARRY_NETWORK FALSE)
     endif()
+    target_link_libraries(verse PUBLIC ${network})
+    set(VERSE_CARRY_NETWORK FALSE)
 
     if(VERSE_BUILD_SOLO)
         add_dependencies(verse ${solo})
@@ -405,6 +407,19 @@ message(STATUS "VERSE_BUILD_EXAMPLE: ${VERSE_BUILD_EXAMPLE}")
 
 if(VERSE_BUILD_EXAMPLE)
     add_subdirectory(example)
+endif()
+
+##################
+# VERSE C++ bench #
+##################
+
+# [option] VERSE_BUILD_BENCH
+set(VERSE_BUILD_BENCH_OPTION_STR "Build C++ benchmark for VERSE")
+option(VERSE_BUILD_BENCH ${VERSE_BUILD_BENCH_OPTION_STR} ON)
+message(STATUS "VERSE_BUILD_BENCH: ${VERSE_BUILD_BENCH}")
+
+if(VERSE_BUILD_BENCH)
+    add_subdirectory(bench)
 endif()
 
 ##################

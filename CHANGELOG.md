@@ -12,3 +12,9 @@
 ### Features
 
 - Added KKRT oblivious transfer.
+
+## Version 0.3.0
+
+### Features
+
+- Added benchmark for Verse.
